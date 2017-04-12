@@ -5,7 +5,7 @@
 #Date: 10/21/2016
 
 import numpy as np, scipy.misc, scipy.signal
-import time, os, math
+import time, os, math, sys
 import matplotlib.pyplot as plt
 
 #Algorithm:
@@ -74,13 +74,14 @@ def save_image(filename,image):
 
 def main(filename):
 	#main function
+
 	current_path = os.getcwd()
+	
 	#initializing values
 	file_path = current_path + "/" + filename
 
 	#load the image into a matrix I
 	I = load_image(file_path)
-	#I = load_color_image(file_path)
 
 	print I
 
@@ -99,8 +100,12 @@ def main(filename):
 
 if __name__ == "__main__":
 	start_time = time.time()
-	#filename = "input3.jpg"
-	filename = "1.jpg"
+	if len(sys.argv) < 2:
+		print "Insufficient arguments. Exiting!"
+		exit(0)
+	arg_input = sys.argv[1]
+	#filename = "1.jpg"
+	filename = arg_input
 	main(filename)
 	end_time = time.time()
 	print "Runtime : "+str((end_time - start_time) / 60)+" minutes"
